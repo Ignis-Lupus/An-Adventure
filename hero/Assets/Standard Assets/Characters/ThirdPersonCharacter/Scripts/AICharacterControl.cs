@@ -11,6 +11,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public ThirdPersonCharacter character { get; private set; } // the character we are controlling
         public Transform target;                                    // target to aim for
 
+        public GameObject[] waypoints;
+        int currentWP = 0;
+        float accuracyWP = 2.0f;
 
         private void Start()
         {
