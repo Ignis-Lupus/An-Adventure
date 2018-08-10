@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - waypoint
+  - Enemy
+  - PlayerWeapon
+  - Shield
+  - ShambleFist
   layers:
   - Default
   - TransparentFX
