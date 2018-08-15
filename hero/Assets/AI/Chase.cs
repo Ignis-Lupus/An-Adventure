@@ -125,7 +125,7 @@ public class Chase : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "alliedWeapon")
+        if (other.tag == "AlliedWeapon")
         {
 
             Debug.Log("Hit");

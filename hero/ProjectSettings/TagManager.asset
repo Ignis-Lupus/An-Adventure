@@ -9,6 +9,7 @@ TagManager:
   - PlayerWeapon
   - Shield
   - ShambleFist
+  - AlliedWeapon
   layers:
   - Default
   - TransparentFX

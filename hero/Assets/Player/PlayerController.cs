@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 
 public class PlayerController : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour {
     public float speed = 10.0f;
     public float health = 100;
     public bool dead = false;
+    public Slider healthSlider;
 
 	// Use this for initialization
 	void Start ()
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour {
         Move();
         AttackBlock();
         Health();
+        UpdateUI();
 
         if(Input.GetKeyDown("escape"))
         {
@@ -83,7 +86,6 @@ public class PlayerController : MonoBehaviour {
         if(Input.GetButton("Block"))
         {
 
-            Debug.Log("Blocking");
             anim.SetBool("isBlocking", true);
 
         }
@@ -101,7 +103,7 @@ public class PlayerController : MonoBehaviour {
         {
 
             Debug.Log("Hit");
-            health -= 100;
+            health -= 20;
             UpdateUI();
 
         }
@@ -126,7 +128,7 @@ public class PlayerController : MonoBehaviour {
     void UpdateUI()
         {
 
-
+        //healthSlider.value = health;
 
         }
 
