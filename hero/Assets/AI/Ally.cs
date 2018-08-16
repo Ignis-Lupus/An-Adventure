@@ -4,14 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class Chase : MonoBehaviour {
+public class Ally : MonoBehaviour
+{
 
     public UnityEngine.AI.NavMeshAgent agent;
     public Transform player;
     public Transform head;
     public Animator anim;
     bool pursuing = false;
-    
+
 
     string state = "patrol";
     public GameObject[] waypoints;
@@ -19,27 +20,29 @@ public class Chase : MonoBehaviour {
     float rotSpeed = 1f;
     float speed = 3f;
     float accuracyWP = 5.0f;
-    
 
+    float guardDistance = 10.0f;
+
+    FormationManager FM;
 
     //public Slider healthSlider;
 
     public bool dead = false;
     public float health = 100;
-    
+
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
 
         anim = GetComponent<Animator>();
 
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    }
+
+    // Update is called once per frame
+    void Update()
     {
-        if(dead == false)
+        if (dead == false)
         {
 
             Move();
@@ -48,7 +51,7 @@ public class Chase : MonoBehaviour {
 
         Health();
 
-	}
+    }
 
     void Move()
     {
@@ -78,32 +81,32 @@ public class Chase : MonoBehaviour {
 
             state = "pursuing";
 
-            agent.SetDestination(player.transform.position);
+
 
             if (direction.magnitude > 5)
-            {
+        {
 
-                //transform.Translate(0, 0, Time.deltaTime * speed);
-                anim.SetBool("isAttacking", false);
-                anim.SetBool("isWalking", true);
-
-            }
-            else
-            {
-
-                anim.SetBool("isAttacking", true);
-                anim.SetBool("isWalking", false);
-
-            }
+            //transform.Translate(0, 0, Time.deltaTime * speed);
+            anim.SetBool("isAttacking", false);
+            anim.SetBool("isWalking", true);
 
         }
+        else
+        {
+
+            anim.SetBool("isAttacking", true);
+            anim.SetBool("isWalking", false);
+
+        }
+
+    }
         else
         {
 
             //anim.SetBool("isIdle", true);
             anim.SetBool("isAttacking", false);
             anim.SetBool("isWalking", false);
-            state = "patrol";
+            state = "relaxed";
 
         }
 
@@ -125,7 +128,7 @@ public class Chase : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "AlliedWeapon")
+        if (other.tag == "EnemyWeapon")
         {
 
             Debug.Log("Hit");
@@ -134,7 +137,7 @@ public class Chase : MonoBehaviour {
 
         }
 
-        if(other.tag == "PlayerWeapon")
+        if (other.tag == "ShambleFist")
         {
 
             Debug.Log("Hit");
@@ -142,7 +145,7 @@ public class Chase : MonoBehaviour {
             UpdateUI();
 
         }
-        
+
 
     }
     void UpdateUI()
@@ -159,4 +162,23 @@ public class Chase : MonoBehaviour {
 
     }
 
+    void formation()
+    {
+
+        if (Vector3.Distance(player.position, transform.position) > 10 )
+        {
+
+            agent.SetDestination(player.transform.position);
+
+        }
+        else
+        {
+
+
+
+        }
+
+    }
+
 }
+
