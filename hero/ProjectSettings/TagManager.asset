@@ -10,6 +10,8 @@ TagManager:
   - Shield
   - ShambleFist
   - AlliedWeapon
+  - FormationPoint
+  - Human
   layers:
   - Default
   - TransparentFX

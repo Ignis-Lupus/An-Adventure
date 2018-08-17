@@ -11,7 +11,6 @@ public class Chase : MonoBehaviour {
     public Transform head;
     public Animator anim;
     bool pursuing = false;
-    
 
     string state = "patrol";
     public GameObject[] waypoints;
@@ -19,7 +18,10 @@ public class Chase : MonoBehaviour {
     float rotSpeed = 1f;
     float speed = 3f;
     float accuracyWP = 5.0f;
-    
+
+    float timeToGo;
+
+    private Targetting T;
 
 
     //public Slider healthSlider;
@@ -32,7 +34,9 @@ public class Chase : MonoBehaviour {
     void Start ()
     {
 
+        T = FindObjectOfType<Targetting>();
         anim = GetComponent<Animator>();
+        timeToGo = Time.fixedTime + 3.0f;
 
 	}
 	
@@ -46,9 +50,39 @@ public class Chase : MonoBehaviour {
 
         }
 
+
+        
+
+
         Health();
 
 	}
+
+    void Target()
+    {
+        if(player == null)
+        {
+
+            
+
+        }
+
+        player = T.selectedTarget;
+
+    }
+
+    private void FixedUpdate()
+    {
+        
+        if(Time.fixedTime >= timeToGo)
+        {
+
+            Target();
+            timeToGo = Time.fixedTime + 3.0f;
+
+        }
+
+    }
 
     void Move()
     {
@@ -83,7 +117,6 @@ public class Chase : MonoBehaviour {
             if (direction.magnitude > 5)
             {
 
-                //transform.Translate(0, 0, Time.deltaTime * speed);
                 anim.SetBool("isAttacking", false);
                 anim.SetBool("isWalking", true);
 
@@ -117,7 +150,6 @@ public class Chase : MonoBehaviour {
 
             anim.SetBool("isDead", true);
             dead = true;
-            Debug.Log("dead");
             Invoke("Death", 10.0f);
         }
 

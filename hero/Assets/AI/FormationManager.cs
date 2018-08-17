@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FormationManager : MonoBehaviour {
 
-    public string state = "relaxed";
+    public string state = "ShieldWall";
     public Transform player;
 
 
@@ -19,8 +19,8 @@ public class FormationManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		
 
+        Formation();
 
 	}
 
@@ -31,6 +31,32 @@ public class FormationManager : MonoBehaviour {
         {
 
 
+
+        }
+
+        if(state == "ShieldWall")
+        {
+
+
+
+        }
+
+    }
+
+    void Control()
+    {
+
+        if(Input.GetButtonDown("Formation1"))
+        {
+
+            state = "relaxed";
+
+        }
+
+        if(Input.GetButtonDown("Formation2"))
+        {
+
+            state = "ShieldWall";
 
         }
 

@@ -8,28 +8,20 @@ public class Ally : MonoBehaviour
 {
 
     public UnityEngine.AI.NavMeshAgent agent;
-    public Transform player;
     public Transform head;
     public Animator anim;
-    bool pursuing = false;
+    public Transform FP;
+    public Transform face;
+    Transform enemyLocation;
 
+    public GameObject[] enemy;
 
     string state = "patrol";
-    public GameObject[] waypoints;
-    int currentWP;
     float rotSpeed = 1f;
     float speed = 3f;
-    float accuracyWP = 5.0f;
+    float accuracyWP = 0.1f;
 
-    float guardDistance = 10.0f;
-
-    FormationManager FM;
-
-    //public Slider healthSlider;
-
-    public bool dead = false;
-    public float health = 100;
-
+    public FormationManager FM;
 
     // Use this for initialization
     void Start()
@@ -42,141 +34,60 @@ public class Ally : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (dead == false)
-        {
 
-            Move();
-
-        }
-
-        Health();
+        Move();
+        
 
     }
 
     void Move()
     {
 
-        Vector3 direction = player.position - transform.position;
-        direction.y = 0;
-        float angle = Vector3.Angle(direction, transform.forward);
+        //Vector3 direction = face.position - transform.position;
+        //direction.y = 0;
+        //float angle = Vector3.Angle(direction, transform.forward);
 
-        if (state == "patrol" && waypoints.Length > 0)
-        {
+        //agent.SetDestination(FP.transform.position);
+        //transform.LookAt(face);
+        
 
-            //anim.SetBool("isIdle", false);
-            anim.SetBool("isWalking", true);
-            if (Vector3.Distance(waypoints[currentWP].transform.position, transform.position) < accuracyWP)
-            {
-
-                currentWP = Random.Range(0, waypoints.Length);
-
-            }
-
-            agent.SetDestination(waypoints[currentWP].transform.position);
-
-        }
-
-        if (Vector3.Distance(player.position, transform.position) < 10 && (angle < 30 || state == "pursuing"))
-        {
-
-            state = "pursuing";
-
-
-
-            if (direction.magnitude > 5)
-        {
-
-            //transform.Translate(0, 0, Time.deltaTime * speed);
-            anim.SetBool("isAttacking", false);
-            anim.SetBool("isWalking", true);
-
-        }
-        else
-        {
-
-            anim.SetBool("isAttacking", true);
-            anim.SetBool("isWalking", false);
-
-        }
-
-    }
-        else
-        {
-
-            //anim.SetBool("isIdle", true);
-            anim.SetBool("isAttacking", false);
-            anim.SetBool("isWalking", false);
-            state = "relaxed";
-
-        }
-
+        Face();
     }
 
-    void Health()
+    void Face()
     {
 
-        if (health <= 0)
+        if(FM.state == "ShieldWall")
         {
 
-            anim.SetBool("isDead", true);
-            dead = true;
-            Debug.Log("dead");
-            Invoke("Death", 10.0f);
+            Vector3 direction = face.position - transform.position;
+            direction.y = 0;
+            float angle = Vector3.Angle(direction, transform.forward);
+
+            agent.SetDestination(FP.transform.position);
+            transform.LookAt(face);
+            
+
         }
 
+
+        if(FM.state == "relaxed")
+        {
+
+            agent.SetDestination(enemyLocation.transform.position);
+
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
+    void FindEnemy()
     {
-        if (other.tag == "EnemyWeapon")
+        if(enemy == null)
         {
 
-            Debug.Log("Hit");
-            health -= 100;
-            UpdateUI();
+            enemy = GameObject.FindGameObjectsWithTag("Enemy");
 
         }
-
-        if (other.tag == "ShambleFist")
-        {
-
-            Debug.Log("Hit");
-            health -= 100;
-            UpdateUI();
-
-        }
-
-
-    }
-    void UpdateUI()
-    {
-
-        //healthSlider.value = health;
-
-    }
-
-    void Death()
-    {
-
-        Destroy(gameObject);
-
-    }
-
-    void formation()
-    {
-
-        if (Vector3.Distance(player.position, transform.position) > 10 )
-        {
-
-            agent.SetDestination(player.transform.position);
-
-        }
-        else
-        {
-
-
-
-        }
+        
 
     }
 
