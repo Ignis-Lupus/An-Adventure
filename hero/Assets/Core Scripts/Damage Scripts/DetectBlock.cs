@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DetectBlock : MonoBehaviour {
 
+    public PlayerController PC;
+
 	// Use this for initialization
 	void Start () {
 		

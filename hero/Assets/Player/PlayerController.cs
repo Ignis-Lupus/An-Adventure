@@ -5,11 +5,15 @@ using UnityEngine.Experimental.UIElements;
 
 public class PlayerController : MonoBehaviour {
 
+    string state = "CanTakeDamage";
+
     static Animator anim;
     public float speed = 10.0f;
     public float health = 100;
     public bool dead = false;
     public Slider healthSlider;
+
+    public DetectBlock DB;
 
 	// Use this for initialization
 	void Start ()
@@ -87,12 +91,14 @@ public class PlayerController : MonoBehaviour {
         {
 
             anim.SetBool("isBlocking", true);
+            state = "CantTakeDamage";
 
         }
         else
         {
 
             anim.SetBool("isBlocking", false);
+            state = "CanTakeDamage";
 
         }
 
@@ -103,7 +109,13 @@ public class PlayerController : MonoBehaviour {
         {
 
             Debug.Log("Hit");
-            health -= 20;
+            if(state == "CanTakeDamage")
+            {
+
+                health -= 20;
+
+            }
+            
             UpdateUI();
 
         }
