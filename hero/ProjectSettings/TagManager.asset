@@ -12,6 +12,8 @@ TagManager:
   - AlliedWeapon
   - FormationPoint
   - Human
+  - Pickup
+  - EnemyRadius
   layers:
   - Default
   - TransparentFX
