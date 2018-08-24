@@ -1199,7 +1199,7 @@ BoxCollider:
   m_GameObject: {fileID: 316025401}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.2, z: 3.2}
   m_Center: {x: -0.1, y: 0, z: 2.3}
@@ -1283,7 +1283,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4169726162027408, guid: 805ceea9f6dad774399c81044ab64659, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1431183012131640, guid: 805ceea9f6dad774399c81044ab64659, type: 2}
       propertyPath: m_Name
@@ -1527,7 +1527,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &382576026
 GameObject:
@@ -4288,7 +4288,7 @@ BoxCollider:
   m_GameObject: {fileID: 1580273866}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.02, y: 0.01, z: 0.0097}
   m_Center: {x: 0, y: 0, z: 0.0025}
@@ -4776,6 +4776,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114119811640779442, guid: c7e0920955bbdd14498d304bd5e4df20,
+        type: 2}
+      propertyPath: waypoints.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4042951199072692, guid: c7e0920955bbdd14498d304bd5e4df20, type: 2}
       propertyPath: m_LocalPosition.x
       value: 127.755
@@ -4841,7 +4846,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: c7e0920955bbdd14498d304bd5e4df20, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1781682856
@@ -5666,6 +5676,7 @@ MonoBehaviour:
   speed: 4
   health: 100
   dead: 0
+  underAttack: 0
   DB: {fileID: 0}
 --- !u!136 &2057143224
 CapsuleCollider:

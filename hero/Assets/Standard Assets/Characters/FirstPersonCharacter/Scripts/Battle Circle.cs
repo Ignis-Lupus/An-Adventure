@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class BattleCircle : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public Transform avoidEnemy;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -14,18 +16,6 @@ public class BattleCircle : MonoBehaviour {
 		
 	}
 
-    public Transform avoidEnemy;
 
 
-    public void OnTriggerEnter(Collider other)
-    {
-        
-        if(other.tag == "EnemyRadius")
-        {
-
-            avoidEnemy = other.transform;
-
-        }
-
-    }
 }

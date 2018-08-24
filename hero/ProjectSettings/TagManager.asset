@@ -14,6 +14,9 @@ TagManager:
   - Human
   - Pickup
   - EnemyRadius
+  - Event1
+  - PickUPSword
+  - PickUpShield
   layers:
   - Default
   - TransparentFX

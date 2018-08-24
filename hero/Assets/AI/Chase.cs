@@ -22,12 +22,15 @@ public class Chase : MonoBehaviour {
     float timeToGo;
 
     private Targetting T;
+    private PlayerController PC;
 
 
     //public Slider healthSlider;
 
     public bool dead = false;
     public float health = 100;
+
+    public GameObject damageCollider;
     
 
     // Use this for initialization
@@ -39,9 +42,21 @@ public class Chase : MonoBehaviour {
         timeToGo = Time.fixedTime + 3.0f;
 
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    IEnumerator Damage()
+    {
+        Debug.Log("attacked");
+        anim.SetBool("isAttacking", true);
+        damageCollider.SetActive(true);
+        yield return new WaitForSeconds(2.0f);
+        damageCollider.SetActive(false);
+        anim.SetBool("isAttacking", false);
+        StartCoroutine(Damage());
+
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
         if(dead == false)
         {
@@ -114,20 +129,36 @@ public class Chase : MonoBehaviour {
 
             agent.SetDestination(player.transform.position);
 
-            if (direction.magnitude > 5)
+            //if (direction.magnitude > 5)
+            //{
+                
+            //    anim.SetBool("isAttacking", false);
+            //    anim.SetBool("isWalking", true);
+
+            //}
+            //else
+            //{
+
+            //    Debug.Log("attack");
+            //    anim.SetBool("isAttacking", true);
+            //    anim.SetBool("isWalking", false);
+
+            //}
+
+            if (direction.magnitude < 5)
             {
 
-                anim.SetBool("isAttacking", false);
-                anim.SetBool("isWalking", true);
-
+                StartCoroutine(Damage());
+                
             }
             else
             {
 
-                anim.SetBool("isAttacking", true);
-                anim.SetBool("isWalking", false);
+                StopCoroutine(Damage());
 
             }
+
+
 
         }
         else
