@@ -45,13 +45,16 @@ public class Chase : MonoBehaviour {
 
     IEnumerator Damage()
     {
-        Debug.Log("attacked");
-        anim.SetBool("isAttacking", true);
-        damageCollider.SetActive(true);
-        yield return new WaitForSeconds(2.0f);
-        damageCollider.SetActive(false);
-        anim.SetBool("isAttacking", false);
-        StartCoroutine(Damage());
+        if(dead != true)
+        {
+
+            anim.SetBool("isAttacking", true);
+            damageCollider.SetActive(true);
+            yield return new WaitForSeconds(2.0f);
+            damageCollider.SetActive(false);
+            anim.SetBool("isAttacking", false);
+
+        }
 
     }
 
@@ -64,10 +67,6 @@ public class Chase : MonoBehaviour {
             Move();
 
         }
-
-
-        
-
 
         Health();
 
@@ -188,37 +187,34 @@ public class Chase : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "AlliedWeapon")
+        if(dead != true)
         {
 
-            Debug.Log("Hit");
-            health -= 100;
-            UpdateUI();
+            if (other.tag == "AlliedWeapon")
+            {
+
+                Debug.Log("Hit");
+                health -= 100;
+                UpdateUI();
+
+            }
+
+            if (other.tag == "PlayerWeapon")
+            {
+
+
+                health -= 100;
+                UpdateUI();
+
+            }
 
         }
-
-        if(other.tag == "PlayerWeapon")
-        {
-
-            Debug.Log("Hit");
-            health -= 100;
-            UpdateUI();
-
-        }
-        
 
     }
     void UpdateUI()
     {
 
         //healthSlider.value = health;
-
-    }
-
-    void Death()
-    {
-
-        Destroy(gameObject);
 
     }
 

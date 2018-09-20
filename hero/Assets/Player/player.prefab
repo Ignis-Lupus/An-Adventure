@@ -330,7 +330,6 @@ GameObject:
   - component: {fileID: 95137063852682552}
   - component: {fileID: 54914747117990992}
   - component: {fileID: 65452555655347958}
-  - component: {fileID: 114550041569335746}
   m_Layer: 0
   m_Name: sword
   m_TagString: PlayerWeapon
@@ -2957,6 +2956,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 5
   smoothing: 2
+  character: {fileID: 0}
+  Camera: {fileID: 0}
+  turnSpeed: 1
 --- !u!114 &114339796204353794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2970,17 +2972,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: ShieldWall
   player: {fileID: 0}
---- !u!114 &114550041569335746
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1213025505627086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114826314903689612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2992,9 +2983,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f710e8d8aaf7a245ad5402d27a2ea61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flowchart: {fileID: 0}
   speed: 4
   health: 100
   dead: 0
+  healthSlider: {fileID: 0}
+  cursorLocked: 0
+  underAttack: 0
+  spawn: {fileID: 0}
+  damageCollider: {fileID: 0}
+  DB: {fileID: 0}
+  worldSword: {fileID: 0}
+  playerSword: {fileID: 0}
+  worldShield: {fileID: 0}
+  playerShield: {fileID: 0}
+  door: {fileID: 0}
 --- !u!124 &124572218394879610
 Behaviour:
   m_ObjectHideFlags: 1

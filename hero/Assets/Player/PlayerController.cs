@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Fungus;
 
 public class PlayerController : MonoBehaviour {
 
     string state = "CanTakeDamage";
+
+    public Flowchart Flowchart;
 
     static Animator anim;
     public float speed = 4.0f;
@@ -13,7 +16,10 @@ public class PlayerController : MonoBehaviour {
     public bool dead = false;
     public Slider healthSlider;
 
+    public bool cursorLocked;
     public bool underAttack = false;
+
+    public GameObject spawn;
 
     public GameObject damageCollider;
 
@@ -37,7 +43,7 @@ public class PlayerController : MonoBehaviour {
 
         anim = GetComponent<Animator>();
         Cursor.lockState = CursorLockMode.Locked;
-        
+        cursorLocked = true;
 
 		
 	}
@@ -57,7 +63,7 @@ public class PlayerController : MonoBehaviour {
 
     IEnumerator Damage()
     {
-        Debug.Log("attacked");
+
         anim.SetBool("isAttacking", true);
         damageCollider.SetActive(true);
         yield return new WaitForSeconds(1.0f);
@@ -70,20 +76,35 @@ public class PlayerController : MonoBehaviour {
 	void Update ()
     {
 
-        Move();
+        if(dead != true)
+        {
+
+            Move();
+
+        }
+        
         AttackBlock();
         Health();
         UpdateUI();
 
-        if(Input.GetKeyDown("escape"))
+        if(Input.GetKeyDown("escape") && cursorLocked == true)
         {
 
             Cursor.lockState = CursorLockMode.None;
+            cursorLocked = false;
 
         }
 
+        if (Input.GetKeyDown("escape") && cursorLocked == false)
+        {
         
-        if(hasShield == true && hasSword == true)
+            Cursor.lockState = CursorLockMode.Locked;
+            cursorLocked = true;
+
+        }
+
+
+        if (hasShield == true && hasSword == true)
         {
 
             door.SetActive(false);
@@ -206,7 +227,7 @@ public class PlayerController : MonoBehaviour {
         if (other.tag == "ShambleFist")
         {
 
-            Debug.Log("Hit");
+
             if(state == "CanTakeDamage")
             {
 
@@ -228,7 +249,7 @@ public class PlayerController : MonoBehaviour {
         {
 
             canPickUp = true;
-            Debug.Log("canpickup");
+
         }
         else
         {
@@ -241,7 +262,7 @@ public class PlayerController : MonoBehaviour {
         {
 
             canPickUpShield = true;
-            Debug.Log("canpickup1");
+
         }
         else
         {
@@ -251,7 +272,8 @@ public class PlayerController : MonoBehaviour {
         }
 
     }
-
+    
+    
 
     void Health()
     {
@@ -261,12 +283,31 @@ public class PlayerController : MonoBehaviour {
 
             anim.SetBool("isDead", true);
             dead = true;
-            Debug.Log("dead");
-            Invoke("Death", 10.0f);
+            Invoke("Death", 5.0f);
+            //Flowchart.ExecuteBlock("Dead");
+
         }
 
     }
 
+
+    void Death()
+    {
+
+        anim.SetBool("isDead", false);
+        transform.position = spawn.transform.position;
+        Invoke("Respawn", 0.1f);
+
+    }
+
+    void Respawn()
+    {
+
+        health = 100;
+        dead = false;
+
+    }
+   
     void UpdateUI()
     {
 

@@ -10,6 +10,7 @@ public class MouseLook : MonoBehaviour {
     public float smoothing = 2.0f;
 
     public GameObject character;
+    public GameObject Camera;
     public float turnSpeed = 1f;
 
     float minRotation = -45;
@@ -29,19 +30,12 @@ public class MouseLook : MonoBehaviour {
 	void Update ()
     {
 
-        var md = new Vector3(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+        var rotY = new Quaternion(Mathf.Clamp(transform.rotation.y, minRotation, maxRotation), 0, 0, 0);
 
-        md = Vector3.Scale(md, new Vector3(sensitivity * smoothing, sensitivity * smoothing));
-        
-        smoothV.x = Mathf.Lerp(smoothV.x, md.x,  1f / smoothing);
-        smoothV.y = Mathf.Lerp(smoothV.y, md.y, 1f / smoothing);
-        
-        mouseLook += smoothV;
-
-        transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
-        //character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);
         character.transform.Rotate(0, Input.GetAxis("Mouse X") * turnSpeed, 0);
+        transform.Rotate(Input.GetAxis("Mouse Y") * turnSpeed, 0, 0);
 
+        
 
     }
 
